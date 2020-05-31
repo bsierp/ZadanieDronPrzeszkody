@@ -38,7 +38,7 @@ void Prostopadloscian::Rysuj(){
         drawNS::Point3D(this->wierzcholki[0][0],this->wierzcholki[0][1],this->wierzcholki[0][2]), drawNS::Point3D(this->wierzcholki[1][0],this->wierzcholki[1][1],this->wierzcholki[1][2]), drawNS::Point3D(this->wierzcholki[2][0],this->wierzcholki[2][1],this->wierzcholki[2][2]),drawNS::Point3D(this->wierzcholki[3][0],this->wierzcholki[3][1],this->wierzcholki[3][2])             
       },{                                                                                  
         drawNS::Point3D(this->wierzcholki[4][0],this->wierzcholki[4][1],this->wierzcholki[4][2]), drawNS::Point3D(this->wierzcholki[5][0],this->wierzcholki[5][1],this->wierzcholki[5][2]), drawNS::Point3D(this->wierzcholki[6][0],this->wierzcholki[6][1],this->wierzcholki[6][2]),drawNS::Point3D(this->wierzcholki[7][0],this->wierzcholki[7][1],this->wierzcholki[7][2])             
-          }},"blue");
+          }},"orange");
 }
 void Prostopadloscian::Obroc(double kat){
     (*this).Wymaz();
@@ -63,6 +63,7 @@ void Prostopadloscian::Wymaz(){
 bool Prostopadloscian::czy_kolizja(std::shared_ptr<Interfejs> drone) const {
     for(int i=0;i<8;++i){
         if((this->wierzcholki[i]-drone->zwroc_srodek()).dlugosc()<drone->zwroc_promien_drona()){
+            std::cout<<"Prostopadloscian"<<endl;
             return true;
         }
     }

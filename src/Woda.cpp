@@ -29,8 +29,8 @@ void Woda::Rysuj(){
 	drawNS::Point3D(this->granice[1]/2,this->granice[2],this->granice[4]+2), drawNS::Point3D(this->granice[1]/2,0,this->granice[4]+2), drawNS::Point3D(this->granice[1]/2,this->granice[3],this->granice[4]+2)       
 	  },{
 	drawNS::Point3D(this->granice[1],this->granice[2],this->granice[4]), drawNS::Point3D(this->granice[1],0,this->granice[4]), drawNS::Point3D(this->granice[1],this->granice[3],this->granice[4])       
-	  }},"blue");
+	  }},"light-blue");
 }
 bool Woda::czy_kolizja(std::shared_ptr<Interfejs> drone) const{
-    return (this->granice[4]<drone->zwroc_srodek()[2]);
+    return this->granice[4]<drone->zwroc_srodek()[2];
 }

@@ -25,15 +25,22 @@ void Dron::wymaz_drona(){
     this->wirnik[0].Wymaz();
     this->wirnik[1].Wymaz();
 }
-void Dron::ruch_drona(double odl){
+void Dron::ruch_drona(double odl, double kat){
     double j;
+    double epsilon=0.00000001;
     this->gplt->change_ref_time_ms(-1);
     if(odl>=0){
     for(j=0;j<=odl;j+=DRONE_MOVEMENT_FREQUENCY){
     (*this).Ruszaj(DRONE_MOVEMENT_FREQUENCY);
+    if(abs(kat)<epsilon){
     (*this).Ustaw_Sruby();
     this->wirnik[0].wiruj_sruba(DRONE_MOVEMENT_FREQUENCY*PROPELLER_DEGREE_PER_UNIT);
     this->wirnik[1].wiruj_sruba(DRONE_MOVEMENT_FREQUENCY*PROPELLER_DEGREE_PER_UNIT);
+    }
+    else
+    {
+    (*this).wznies_opusc_drona(DRONE_MOVEMENT_FREQUENCY*tan(kat*PI/180));
+    }
     this->gplt->redraw();
 }
     (*this).Ruszaj(DRONE_MOVEMENT_FREQUENCY*(1-((j-odl)/DRONE_MOVEMENT_FREQUENCY)));
@@ -47,15 +54,19 @@ void Dron::ruch_drona(double odl){
     odl*=(-1);
     for(j=0;j<=odl;j+=DRONE_MOVEMENT_FREQUENCY){
     (*this).Ruszaj(DRONE_MOVEMENT_FREQUENCY);
-    (*this).Ustaw_Sruby();
+    if(abs(kat)<epsilon){
+     (*this).Ustaw_Sruby();
     this->wirnik[0].wiruj_sruba(DRONE_MOVEMENT_FREQUENCY*PROPELLER_DEGREE_PER_UNIT);
     this->wirnik[1].wiruj_sruba(DRONE_MOVEMENT_FREQUENCY*PROPELLER_DEGREE_PER_UNIT);
+    }
+    else
+    {
+    (*this).wznies_opusc_drona(DRONE_MOVEMENT_FREQUENCY*tan(kat*PI/180));
+    }
     this->gplt->redraw();    
 }
     (*this).Ruszaj(DRONE_MOVEMENT_FREQUENCY*(1-((j-odl)/DRONE_MOVEMENT_FREQUENCY)));
     (*this).Ustaw_Sruby();
-    this->wirnik[0].wiruj_sruba(DRONE_MOVEMENT_FREQUENCY*PROPELLER_DEGREE_PER_UNIT);
-    this->wirnik[1].wiruj_sruba(DRONE_MOVEMENT_FREQUENCY*PROPELLER_DEGREE_PER_UNIT);
     this->gplt->redraw();
     }
     this->gplt->change_ref_time_ms(0);
@@ -63,6 +74,7 @@ void Dron::ruch_drona(double odl){
 void Dron::obrot_drona(double kat_obr){
     this->gplt->change_ref_time_ms(-1);
     double pomkat;
+    if(kat_obr>0){
     for(pomkat=0;pomkat<=kat_obr;pomkat+=DRONE_ROTATION_FREQUENCY){
         (*this).Obroc(DRONE_ROTATION_FREQUENCY);
         (*this).Ustaw_Sruby();
@@ -72,11 +84,24 @@ void Dron::obrot_drona(double kat_obr){
     (*this).Ustaw_Sruby();
     this->gplt->redraw();
     this->gplt->change_ref_time_ms(0);
+    }
+    else
+    {
+for(pomkat=0;pomkat>=kat_obr;pomkat-=DRONE_ROTATION_FREQUENCY){
+        (*this).Obroc(-DRONE_ROTATION_FREQUENCY);
+        (*this).Ustaw_Sruby();
+        this->gplt->redraw();
+        }
+    (*this).Obroc(DRONE_ROTATION_FREQUENCY*(1-((pomkat-kat_obr)/DRONE_ROTATION_FREQUENCY)));
+    (*this).Ustaw_Sruby();
+    this->gplt->redraw();
+    this->gplt->change_ref_time_ms(0);    }
+    
 }
 void Dron::wznies_opusc_drona(double odl){
     this->gplt->change_ref_time_ms(-1);
     double j;
-    if(odl>0){
+    if(odl>=0){
     for(j=0;j<=odl;j+=DRONE_MOVEMENT_FREQUENCY){
         (*this).Wznies_Opusc(DRONE_MOVEMENT_FREQUENCY);
         (*this).Ustaw_Sruby();
@@ -88,6 +113,7 @@ void Dron::wznies_opusc_drona(double odl){
     (*this).Ustaw_Sruby();
     this->gplt->redraw();    
     }
+    
     else
     {
     for(j=0;j>=odl;j-=DRONE_MOVEMENT_FREQUENCY){
@@ -101,7 +127,6 @@ void Dron::wznies_opusc_drona(double odl){
     (*this).Ustaw_Sruby();
     this->gplt->redraw();
     }
-    this->gplt->change_ref_time_ms(0);
 }
 void Dron::Ustaw_Sruby(){
     this->wirnik[0].Wymaz();
@@ -116,11 +141,11 @@ void Dron::Ustaw_Sruby(){
     this->wirnik[1].Rysuj();
 }
 bool Dron::czy_kolizja(std::shared_ptr <Interfejs> drone)const {
-    return((this->srodek-drone->zwroc_srodek()).dlugosc()<(this->zwroc_promien_drona()+drone->zwroc_promien_drona()));
+    return (this->srodek-drone->zwroc_srodek()).dlugosc()<(this->zwroc_promien_drona()+drone->zwroc_promien_drona());
 }
 double Dron::zwroc_promien_drona() const{
-    Wektor<double,3> promien(this->srodek[0]+this->wym[0]/4+PROPELLER_BASE_EDGE,this->srodek[1]-this->wym[1]/2-this->wym[1]/PROPELLER_DRONE_LENGTH_RATIO,this->srodek[2]+PROPELLER_BASE_EDGE*sqrt(3)/2);
-    return promien.dlugosc();
+    Wektor<double,3> najdalszy_punkt(this->srodek[0]+this->wym[0]/4+PROPELLER_BASE_EDGE,this->srodek[1]-this->wym[1]/2-this->wym[1]/PROPELLER_DRONE_LENGTH_RATIO,this->srodek[2]);
+    return (najdalszy_punkt-this->srodek).dlugosc();
 }
 const Wektor<double,3> & Dron::zwroc_srodek() const{
     return this->srodek;

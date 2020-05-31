@@ -33,6 +33,7 @@ class Dron:public Prostopadloscian,public Interfejs{
     * aktualnej pozycji i orientacji drona
     */
     void Ustaw_Sruby();
+    void wznies_opusc_drona(double odl) override;
     public:
     /*!
     * \brief Konstruktor czteroparametryczny klasy Dron
@@ -61,9 +62,8 @@ class Dron:public Prostopadloscian,public Interfejs{
     */
     void wymaz_drona();
     double zwroc_promien_drona()const override;
-    void ruch_drona(double odl) override;
+    void ruch_drona(double odl, double kat) override;
     void obrot_drona(double kat_obr) override;
-    void wznies_opusc_drona(double odl) override;
     bool czy_kolizja(std::shared_ptr <Interfejs> drone)const override;
     const Wektor <double,3> & zwroc_srodek() const override;
 };

@@ -1,7 +1,7 @@
 #ifndef INTERFEJS_HH
 #define INTERFEJS_HH
 #define DRONE_MOVEMENT_FREQUENCY 0.01
-#define DRONE_ROTATION_FREQUENCY 0.01
+#define DRONE_ROTATION_FREQUENCY 0.5
 #define PROPELLER_DRONE_LENGTH_RATIO 2
 #define PROPELLER_DEGREE_PER_UNIT 90
 #define PROPELLER_BASE_EDGE 1
@@ -28,7 +28,7 @@ class Interfejs{
     * o wybraną odległość. Ruch drona jest animowany. \n
     * \param[in] odl - odległość o jaką dron ma się przesunąć
     */
-    virtual void ruch_drona(double odl)=0;
+    virtual void ruch_drona(double odl,double kat)=0;
     /*!
     * \brief Metoda obracająca drona
     * 
@@ -49,8 +49,17 @@ class Interfejs{
     * \brief Metoda zwracająca środek drona
     * 
     * Metoda zwraca współrzędne środka 
-    * drona*/
+    * drona
+    */
     virtual const Wektor<double,3> & zwroc_srodek()const=0 ;
+    /*!
+    * \brief Metoda zwracająca promień drona
+    * 
+    * Metoda zwraca promień drona tj. odległość
+    * pomiędzy środkiem drona a punktem oddalonym
+    * najdalej od niego (w tym wypadku jest to jeden
+    * z wierzchołków śruby)
+    */
     virtual double zwroc_promien_drona()const=0 ;
 };
 #endif

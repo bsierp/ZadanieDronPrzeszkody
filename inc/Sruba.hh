@@ -1,7 +1,11 @@
 #ifndef SRUBA_HH
 #define SRUBA_HH
+#ifndef DRONE_MOVEMENT_FREQUENCY
 #define DRONE_MOVEMENT_FREQUENCY 0.01
+#endif
+#ifndef DRONE_ROTATION_FREQUENCY
 #define DRONE_ROTATION_FREQUENCY 0.1
+#endif
 /*!
  * \file
  * \brief Definicja klasy Sruba

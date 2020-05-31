@@ -39,7 +39,7 @@ this->id=this->gplt->draw_polyhedron(vector<vector<Point3D> > {{
         drawNS::Point3D(this->wierzcholki[0][0],this->wierzcholki[0][1],this->wierzcholki[0][2]), drawNS::Point3D(this->wierzcholki[1][0],this->wierzcholki[1][1],this->wierzcholki[1][2]), drawNS::Point3D(this->wierzcholki[2][0],this->wierzcholki[2][1],this->wierzcholki[2][2]),drawNS::Point3D(this->wierzcholki[3][0],this->wierzcholki[3][1],this->wierzcholki[3][2]),drawNS::Point3D(this->wierzcholki[4][0],this->wierzcholki[4][1],this->wierzcholki[4][2]), drawNS::Point3D(this->wierzcholki[5][0],this->wierzcholki[5][1],this->wierzcholki[5][2])             
       },{                                                                                  
          drawNS::Point3D(this->wierzcholki[6][0],this->wierzcholki[6][1],this->wierzcholki[6][2]),drawNS::Point3D(this->wierzcholki[7][0],this->wierzcholki[7][1],this->wierzcholki[7][2]), drawNS::Point3D(this->wierzcholki[8][0],this->wierzcholki[8][1],this->wierzcholki[8][2]),drawNS::Point3D(this->wierzcholki[9][0],this->wierzcholki[9][1],this->wierzcholki[9][2]),drawNS::Point3D(this->wierzcholki[10][0],this->wierzcholki[10][1],this->wierzcholki[10][2]), drawNS::Point3D(this->wierzcholki[11][0],this->wierzcholki[11][1],this->wierzcholki[11][2])            
-          }},"blue");
+          }},"black");
 }
 void GraniastoslupHex::Obroc(double kat){
     (*this).Wymaz();
