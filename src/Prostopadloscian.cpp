@@ -61,11 +61,14 @@ void Prostopadloscian::Wymaz(){
     this->gplt->erase_shape(this->id);
 }
 bool Prostopadloscian::czy_kolizja(std::shared_ptr<Interfejs> drone) const {
-    for(int i=0;i<8;++i){
-        if((this->wierzcholki[i]-drone->zwroc_srodek()).dlugosc()<drone->zwroc_promien_drona()){
-            std::cout<<"Prostopadloscian"<<endl;
-            return true;
-        }
-    }
+if (drone->zwroc_srodek()[0]>this->wierzcholki[0][0]-drone->zwroc_promien_drona() && drone->zwroc_srodek()[0]<this->wierzcholki[1][0]+drone->zwroc_promien_drona()
+    && drone->zwroc_srodek()[1]>this->wierzcholki[0][1]-drone->zwroc_promien_drona() && drone->zwroc_srodek()[1]<this->wierzcholki[3][1]+drone->zwroc_promien_drona()
+    && drone->zwroc_srodek()[2]>this->wierzcholki[0][2]-drone->zwroc_promien_drona() && drone->zwroc_srodek()[2]<this->wierzcholki[4][2]+drone->zwroc_promien_drona())
+{
+    return true;
+}
+else
+{
     return false;
+}
 }

@@ -47,6 +47,7 @@ kolekcja_przeszkod.push_back(Pr1);
 shared_ptr<Prostopadloscian> Pr2 = make_shared<Prostopadloscian>(10,2,7,api);
 Pr2->Obroc(45);
 Pr2->Ruszaj(y-4);
+Pr2->Obroc(-45);
 kolekcja_przeszkod.push_back(Pr2);
 shared_ptr<Prostopadloscian> Pr3 = make_shared<Prostopadloscian>(1,1,2*z,api);
 Pr3->Obroc(90);
