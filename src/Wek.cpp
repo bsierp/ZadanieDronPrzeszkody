@@ -1,8 +1,24 @@
 #include "Wek.hh"
+
 template<class TYP,int ROZMIAR>
 Wektor<TYP,ROZMIAR>::Wektor(){
+    ++count_current;
     for(int i=0;i<ROZMIAR;i++){
         tab[i]=0;
+    }
+}
+template<class TYP,int ROZMIAR>
+Wektor<TYP,ROZMIAR>::Wektor(TYP x,TYP y,TYP z){
+    tab[0]=x;
+    tab[1]=y;
+    tab[2]=z;
+    ++count_current;
+}
+template<class TYP,int ROZMIAR>
+Wektor<TYP,ROZMIAR>::Wektor(const Wektor<TYP,ROZMIAR> & W){
+    ++count_current;
+    for(int i=0;i<ROZMIAR;++i){
+        tab[i]=W[i];
     }
 }
 template<class TYP, int ROZMIAR>

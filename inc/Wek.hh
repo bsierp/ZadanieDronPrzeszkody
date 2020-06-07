@@ -31,7 +31,26 @@ class Wektor{
    * \param ROZMIAR - wielkość tablicy elementów.
    */
     TYP tab[ROZMIAR];
+    /*!
+    * \brief Liczba aktualnie istniejących wektorów
+    * 
+    * W statycznej zmiennej przechowywana jest liczba 
+    * aktualnie istniejących wektorów
+    */
+    static inline int count_current=0;
+    /*!
+    * \brief Liczba usuniętych wektorów
+    *     
+    * W statycznej zmiennej przechowywana jest liczba 
+    * usuniętych wektorów
+    */
+    static inline int count_destroyed=0;
+
     public:
+    
+    static int zwroc_istniejace(){return count_current;}
+    static int zwroc_usuniete(){return count_destroyed;}
+    static int zwroc_wszystkie(){return count_current+count_destroyed;}
     /*!
    * \brief Konstruktor bezparametryczny wektora 
    *
@@ -47,7 +66,11 @@ class Wektor{
    * \param[in] y - wartość współrzędnej Y.
    * \param[in] z - wartość współrzędnej Z.
     */
-    Wektor(TYP x,TYP y,TYP z):tab{x,y,z}{}
+    Wektor(TYP x,TYP y,TYP z);
+    /*!
+    *\brief Konstruktor kopiujący wektora
+    */
+    Wektor(const Wektor<TYP,ROZMIAR> & W);
     /*!
    * \brief Przeciążenie nawiasów kwadratowych
    *
@@ -57,7 +80,7 @@ class Wektor{
    * \return Zwraca referencję do wybranego elementu wektora.
    */
     const TYP & operator[](int index) const;
-    /*!
+  /*!
    * \brief Przeciążenie nawiasów kwadratowych
    *
    * Pozwala na odwołanie się do wybranego elementu wektora 
@@ -129,9 +152,8 @@ class Wektor{
    * Funkcja wylicza długość wektora \n
    * \return Zwraca długość wektora.
    */
-    double dlugosc() const{
-         return sqrt(*this * *this);
-    }
+    double dlugosc() const{return sqrt(*this * *this);}
+    ~Wektor(){--count_current; ++count_destroyed;}
 };
 /*!
  * \brief Przeciążenie operatora przesunięcia bitowego w prawo

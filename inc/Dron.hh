@@ -54,7 +54,7 @@ class Dron:public Prostopadloscian,public Interfejs{
     * Rysuje drona w programie graficznym, do którego
     * wskaźnik posiada obiekt. 
     */
-    void rysuj_drona();
+    void Rysuj() override;
     /*!
     * \brief Metoda wymazująca drona
     * 

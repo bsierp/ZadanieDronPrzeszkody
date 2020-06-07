@@ -33,7 +33,7 @@ vector<shared_ptr<Przeszkoda> > kolekcja_przeszkod;
 vector<shared_ptr<Dron> > kolekcja_Dronow;
 shared_ptr<Woda> tafla = make_shared<Woda>(x,-x,y,-y,z-2,api);
 tafla->Rysuj();
-tafla->Rysuj();//Pierwszy narysowany obiekt zawsze znika (dlaczego ?)
+tafla->Rysuj();//Pierwszy narysowany obiekt zawsze sie nie rysuje(dlaczego ?)
 kolekcja_przeszkod.push_back(tafla);
 shared_ptr<Dno> bottom = make_shared<Dno>(x,-x,y,-y,-z,api);
 bottom->Rysuj();
@@ -73,14 +73,20 @@ Dr2->ruch_drona(-5,-45);
 kolekcja_Dronow.push_back(Dr2);
 kolekcja_przeszkod.push_back(Dr2);
 shared_ptr<Dron> Dr3 = make_shared<Dron>(7,5,4,api);
-Dr3->rysuj_drona();
+Dr3->Rysuj();
 kolekcja_Dronow.push_back(Dr3);
 cout<<"Inicjalizacja zakonczona"<<endl;
 char wybor;
 int a=0;
-int pick_drone=2; //domyślnie - środkowy dron
+int pick_drone=2; //domyślnie - ostatni narysowany dron
 while (a!=1){
-cout<<endl<<"Prosze wybrac opcje:"<<endl<<"r-ruch dronem"<<endl<<"o-obrot drona"<<endl<<"w-wybierz drona"<<endl<<"q-wyjscie"<<endl;
+cout<<endl
+    <<"Prosze wybrac opcje:"<<endl
+    <<"r-ruch dronem"<<endl
+    <<"o-obrot drona"<<endl
+    <<"w-wybierz drona"<<endl
+    <<"s-statystyki wektorow i obiektow"<<endl
+    <<"q-wyjscie"<<endl;
      cin>>wybor;
    switch (wybor)
    {
@@ -114,6 +120,19 @@ cout<<endl<<"Prosze wybrac opcje:"<<endl<<"r-ruch dronem"<<endl<<"o-obrot drona"
           }
           
     }
+      break;
+    }
+    case 's':
+    {
+      cout<<"Obiekty klasy Wektor:"<<endl
+      <<"Istniejace:"<<Wektor<double,3>::zwroc_istniejace()<<endl
+      <<"Usuniete:"<<Wektor<double,3>::zwroc_usuniete()<<endl
+      <<"Wszystkie:"<<Wektor<double,3>::zwroc_wszystkie()<<endl
+      <<endl
+      <<"Obiekty klasy Obiekt3D:"<<endl
+      <<"Istniejace:"<<Obiekt3D::zwroc_istniejace()<<endl
+      <<"Usuniete:"<<Obiekt3D::zwroc_usuniete()<<endl
+      <<"Wszystkie:"<<Obiekt3D::zwroc_wszystkie()<<endl;
       break;
     }
     case 'o':

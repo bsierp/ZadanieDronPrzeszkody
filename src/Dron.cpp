@@ -16,8 +16,8 @@ if(width>0&&length>0&&height>0){
     }
 
 }
-void Dron::rysuj_drona(){
-    (*this).Rysuj();
+void Dron::Rysuj(){
+   Prostopadloscian::Rysuj();
     this->Ustaw_Sruby();
 }
 void Dron::wymaz_drona(){
@@ -78,6 +78,8 @@ void Dron::obrot_drona(double kat_obr){
     for(pomkat=0;pomkat<=kat_obr;pomkat+=DRONE_ROTATION_FREQUENCY){
         (*this).Obroc(DRONE_ROTATION_FREQUENCY);
         (*this).Ustaw_Sruby();
+        this->wirnik[0].wiruj_sruba(DRONE_MOVEMENT_FREQUENCY*PROPELLER_DEGREE_PER_UNIT);
+        this->wirnik[1].wiruj_sruba(DRONE_MOVEMENT_FREQUENCY*PROPELLER_DEGREE_PER_UNIT);
         this->gplt->redraw();
         }
     (*this).Obroc(DRONE_ROTATION_FREQUENCY*(1-((pomkat-kat_obr)/DRONE_ROTATION_FREQUENCY)));
@@ -89,6 +91,8 @@ void Dron::obrot_drona(double kat_obr){
     {
 for(pomkat=0;pomkat>=kat_obr;pomkat-=DRONE_ROTATION_FREQUENCY){
         (*this).Obroc(-DRONE_ROTATION_FREQUENCY);
+        this->wirnik[0].wiruj_sruba(DRONE_MOVEMENT_FREQUENCY*PROPELLER_DEGREE_PER_UNIT);
+        this->wirnik[1].wiruj_sruba(DRONE_MOVEMENT_FREQUENCY*PROPELLER_DEGREE_PER_UNIT);
         (*this).Ustaw_Sruby();
         this->gplt->redraw();
         }

@@ -46,7 +46,14 @@ class Obiekt3D{
     * w którym odbywa się rysowanie obiektu.
     */
     drawNS::Draw3DAPI *gplt;
+    static inline int count_current=0;
+    static inline int count_destroyed=0;
     public:
+    static int zwroc_istniejace(){return count_current;}
+    static int zwroc_usuniete(){return count_destroyed;}
+    static int zwroc_wszystkie(){return count_current+count_destroyed;}
+    Obiekt3D(){count_current++;}
+    Obiekt3D(const Obiekt3D & Ob): gplt(Ob.gplt), id(Ob.id), orient(Ob.orient), srodek(Ob.srodek){++count_current;}
     /*!
     * \brief Metoda rysująca trójwymiarowy obiekt
     * 
@@ -62,5 +69,6 @@ class Obiekt3D{
     * metodzie jest metoda Rysuj()
     */
     virtual void Wymaz()=0;
+    ~Obiekt3D(){--count_current; ++count_destroyed;}
 };
 #endif
