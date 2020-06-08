@@ -60,7 +60,21 @@ void Prostopadloscian::Wznies_Opusc(double odl){
 void Prostopadloscian::Wymaz(){
     this->gplt->erase_shape(this->id);
 }
-bool Prostopadloscian::czy_kolizja(std::shared_ptr<Interfejs> drone) const {
+PrzeszkodaProstopadloscian::PrzeszkodaProstopadloscian(double width,double length,double height,drawNS::Draw3DAPI *api){
+    if(width>0&&length>0&&height>0){
+    wym[0]=width;
+    wym[1]=length;
+    wym[2]=height;
+    this->gplt=api;
+    }
+    else
+    {
+        cerr<<"Wprowadzono niedodatnia dlugosc boku"<<endl;
+        exit(1);
+    }
+        
+}
+bool PrzeszkodaProstopadloscian::czy_kolizja(std::shared_ptr<Interfejs> drone) const {
 if (drone->zwroc_srodek()[0]>this->wierzcholki[0][0]-drone->zwroc_promien_drona() && drone->zwroc_srodek()[0]<this->wierzcholki[1][0]+drone->zwroc_promien_drona()
     && drone->zwroc_srodek()[1]>this->wierzcholki[0][1]-drone->zwroc_promien_drona() && drone->zwroc_srodek()[1]<this->wierzcholki[3][1]+drone->zwroc_promien_drona()
     && drone->zwroc_srodek()[2]>this->wierzcholki[0][2]-drone->zwroc_promien_drona() && drone->zwroc_srodek()[2]<this->wierzcholki[4][2]+drone->zwroc_promien_drona())

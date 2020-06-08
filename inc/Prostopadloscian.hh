@@ -2,10 +2,10 @@
 #define PROSTOPADLOSCIAN_HH
 /*!
  * \file
- * \brief Definicja klasy Prostopadloscian
+ * \brief Definicja klasy Prostopadloscian oraz PrzeszkodaProstopadloscian
  *
- * Plik zawiera definicje klasy Prostopadloscian,
- * oraz deklaracje metod tej klasy.
+ * Plik zawiera definicje klasy Prostopadloscian oraz PrzeszkodaProstopadloscian,
+ * i deklaracje metod tych klas.
  */
 #include "Przeszkoda.hh"
 #include "Obiekt3D.hh"
@@ -18,7 +18,7 @@ using std::vector;
 * Klasa modeluje pojęcie prostopadłościanu
 * dziedzicząc publicznie po klasie Obiekt3D.
 */
-class Prostopadloscian:public Obiekt3D,public Przeszkoda {
+class Prostopadloscian:public Obiekt3D {
     protected:
 /*!
 * \brief Wymiary prostopadłościanu
@@ -94,6 +94,25 @@ class Prostopadloscian:public Obiekt3D,public Przeszkoda {
     */
     void Wznies_Opusc(double odl);
     void Wymaz() override;
-    bool czy_kolizja(std::shared_ptr<Interfejs> drone) const override;
+};
+/*!
+* \brief Model pojęcia Przeszkody Prostopadłościennej
+*
+* Klasa modeluje pojęcie przeszkody prostopadlosciennej
+* dziedzicząc publicznie po klasie Prostopadloscian i Przeszkoda.
+*/
+class PrzeszkodaProstopadloscian: public Prostopadloscian, public Przeszkoda {
+    public:
+    /*!
+    * \brief Konstruktor czteroparametryczny klasy PrzeszkodaProstopadloscian
+    * 
+    * Konstruktor wypełnia tablicę wymiarów parametrami konstruktora. \n
+    * \param[in] width - szerokość prostopadłościanu (wymiar w osi x)
+    * \param[in] length - długość prostopadłościanu (wymiar w osi y)
+    * \param[in] height - wysokość prostopadłościanu (wymiar w osi z)
+    * \param[in] api - wskaźnik do programu graficznego, w którym ma być rysowany obiekt
+    */
+PrzeszkodaProstopadloscian(double width,double length,double height,drawNS::Draw3DAPI *api);
+bool czy_kolizja(std::shared_ptr<Interfejs> drone) const override;
 };
 #endif

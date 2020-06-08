@@ -15,9 +15,9 @@
 *
 * Klasa modeluje pojęcie drona, który
 * dziedziczy publicznie po klasie Interfejs
-* oraz klasie Prostopadloscian.
+* oraz klasie Prostopadloscian i klasie Przeszkoda.
 */
-class Dron:public Prostopadloscian,public Interfejs{
+class Dron:public Prostopadloscian,public Interfejs,public Przeszkoda{
     protected:
     /*!
     * \brief Wirniki drona

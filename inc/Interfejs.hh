@@ -27,6 +27,7 @@ class Interfejs{
     * Zmienia położenie drona w przód
     * o wybraną odległość. Ruch drona jest animowany. \n
     * \param[in] odl - odległość o jaką dron ma się przesunąć
+    * \param[in] kat - kąt wznoszenia/opadania drona
     */
     virtual void ruch_drona(double odl,double kat)=0;
     /*!
